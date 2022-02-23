@@ -1,0 +1,14 @@
+{
+	"hash": "1447d2d913a8f3be53eb584c5d59883d",
+	"updated": "2022-02-22T21:09:55.8748657-03:00",
+	"installedModules": {
+		"https://github.com/somasolucoes/core-capsule": {
+			"name": "core-capsule",
+			"version": "v1.0.0",
+			"hash": "1ccb95e79ca95a9232b89bd0da071263",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		}
+	}
+}
