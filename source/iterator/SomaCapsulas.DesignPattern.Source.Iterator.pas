@@ -59,6 +59,10 @@ type
     ///   Returns an item from collection, nil otherwise.
     /// </returns>
     function GetNext: TReturn; virtual; abstract;
+    /// <summary>
+    ///   Reset iterator index
+    /// </summary>
+    procedure Reset; virtual; abstract;
     constructor Create(ACollection: TCollection); virtual;
   end;
 
@@ -106,6 +110,10 @@ type
     ///   Returns an item from collection, nil otherwise.
     /// </returns>
     function GetNext: TReturn; override;
+    /// <summary>
+    ///   Reset iterator index to the beginning
+    /// </summary>
+    procedure Reset; override;
   end;
 
   /// <summary>
@@ -131,7 +139,10 @@ type
     ///   Returns an item from collection, nil otherwise.
     /// </returns>
     function GetNext: TReturn; override;
-    constructor Create(ACollection: TList<TReturn>); override;
+    /// <summary>
+    ///   Reset iterator index to the end
+    /// </summary>
+    procedure Reset; override;
   end;
 
 implementation
@@ -144,7 +155,7 @@ uses
 constructor TIterator<TCollection, TReturn>.Create(ACollection: TCollection);
 begin
   Self.Collection := ACollection;
-  Self.CurrentIndex := ZeroValue;
+  Reset;
 end;
 
 { TListIterator<TReturn> }
@@ -179,14 +190,12 @@ begin
   Result := (Assigned(Self.Collection)) and (Self.CurrentIndex < Self.Count);
 end;
 
-{ TDescListIterator<TReturn> }
-
-constructor TDescListIterator<TReturn>.Create(
-  ACollection: TList<TReturn>);
+procedure TAscListIterator<TReturn>.Reset;
 begin
-  inherited;
-  Self.CurrentIndex := Pred(Self.Count);
+  Self.CurrentIndex := ZeroValue;
 end;
+
+{ TDescListIterator<TReturn> }
 
 function TDescListIterator<TReturn>.GetNext: TReturn;
 begin
@@ -197,6 +206,11 @@ end;
 function TDescListIterator<TReturn>.HasNext: Boolean;
 begin
   Result := (Assigned(Self.Collection)) and (Self.CurrentIndex >= ZeroValue);
+end;
+
+procedure TDescListIterator<TReturn>.Reset;
+begin
+  Self.CurrentIndex := Pred(Self.Count);
 end;
 
 end.

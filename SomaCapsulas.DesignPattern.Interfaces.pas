@@ -26,6 +26,7 @@ type
     property Count: Integer read GetCount;
     function HasNext: Boolean;
     function GetNext: TReturn;
+    procedure Reset;
   end;
 
 implementation end.
